@@ -10,8 +10,26 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content  | safe }}</p>
+                    <h4> Komentarai </h4>
+                    <hr>
+              {% if not post.comments.all %}
+                        Komentarų nėra.. <a href="#">
+                        Pridėti komentarą </a>
+              {% else %}
+                {% for comment in post.comments.all %}
+                    <strong>{{ comment.name }} -
+                            {{ comment.date_added }}
+                    </strong>
+                    <br/>
+                  {{ comment.body }}
+                {% endfor %}
+              {% endif %}
+              <hr>
+
           </div>
+
         </article>
+
     {% endfor %}
     {% if is_paginated %}
 
